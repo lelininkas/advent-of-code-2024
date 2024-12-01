@@ -7,11 +7,11 @@ fun main() {
     }
 
     fun part2(input: List<List<Int>>): Int {
-        return input[0].map { a -> a * input[1].count { b -> b == a } }.sum()
+        return input[0].sumOf { a -> a * input[1].count { b -> b == a } }
     }
 
     fun toListOfLists(input: List<String>): List<List<Int>> {
-        val values = input.map { it.trim().split("\\s+".toRegex()).map(String::toInt) }
+        val values = input.map { it.trim().split("""\s+""".toRegex()).map(String::toInt) }
         return List(values[0].size) { index -> values.map { it[index] } }
     }
 

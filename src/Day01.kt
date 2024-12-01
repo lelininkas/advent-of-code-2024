@@ -1,21 +1,28 @@
+import kotlin.math.absoluteValue
+
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
+    fun part1(input: List<List<Int>>): Int {
+        val sorted = input.map { it.sorted() }
+        return sorted[0].zip(sorted[1])  {a, b -> (a - b).absoluteValue}.sum()
     }
 
-    fun part2(input: List<String>): Int {
-        return input.size
+    fun part2(input: List<List<Int>>): Int {
+        return input[0].map { a -> a * input[1].count { b -> b == a } }.sum()
     }
 
-    // Test if implementation meets criteria from the description, like:
-    check(part1(listOf("test_input")) == 1)
+    fun toListOfLists(input: List<String>): List<List<Int>> {
+        val values = input.map { it.trim().split("\\s+".toRegex()).map(String::toInt) }
+        return List(values[0].size) { index -> values.map { it[index] } }
+    }
 
-    // Or read a large test input from the `src/Day01_test.txt` file:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
+    fun getTestInput(): List<List<Int>> = toListOfLists(readInput("Day01_test"))
+    fun getInput(): List<List<Int>> = toListOfLists(readInput("Day01"))
 
-    // Read the input from the `src/Day01.txt` file.
-    val input = readInput("Day01")
+    val testInput = getTestInput()
+    check(part1(testInput) == 11)
+    check(part2(testInput) == 31)
+
+    val input = getInput()
     part1(input).println()
     part2(input).println()
 }

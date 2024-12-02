@@ -10,7 +10,7 @@ fun main() {
         var isIncreasing: Boolean? = null
         return report.zipWithNext().all { (a, b) ->
             isIncreasing = isIncreasing ?: (b > a)
-            isIncreasing == b > a && abs(b - a) in 1..3
+            isIncreasing == (b > a) && abs(b - a) in 1..3
         }
     }
 

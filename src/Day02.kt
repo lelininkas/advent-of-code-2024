@@ -8,13 +8,10 @@ fun main() {
     // Any two adjacent levels differ by at least one and at most three.
     fun checkSafety(report: List<Int>): Boolean {
         var isIncreasing: Boolean? = null
-        return report.zipWithNext { a, b ->
-            if (isIncreasing == null) {
-                isIncreasing = b > a
-            }
-            val diff = abs(b - a)
-            !((isIncreasing != b > a) || (diff < 1 || diff > 3))
-        }.contains(false).not()
+        return report.zipWithNext().all { (a, b) ->
+            isIncreasing = isIncreasing ?: (b > a)
+            isIncreasing == b > a && abs(b - a) in 1..3
+        }
     }
 
     fun part1(reports: List<List<Int>>): Int {
